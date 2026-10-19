@@ -1,0 +1,7 @@
+# Build output - never commit compiled files
+target/
+# NetBeans private settings
+nbproject/private/
+# IDE folders
+.idea/
+*.iml
