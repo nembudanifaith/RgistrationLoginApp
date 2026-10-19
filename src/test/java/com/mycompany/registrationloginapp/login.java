@@ -1,13 +1,14 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * This file is intentionally replaced with a harmless stub to avoid accidental test discovery
+ * or compilation issues. The original lowercase `login.java` appeared to be an empty/unused file.
+ *
+ * If you want this file removed entirely, I can open a PR that deletes it instead.
  */
 package com.mycompany.registrationloginapp;
 
 /**
- *
- * @author Student
+ * Disabled test stub to replace accidental lowercase 'login' class file.
  */
 public class login {
-    
+    // Intentionally empty placeholder
 }
