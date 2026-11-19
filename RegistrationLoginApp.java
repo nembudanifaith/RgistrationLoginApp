@@ -1,5 +1,8 @@
 package com.mycompany.registrationloginapp;
 
+import com.google.gson.JsonSyntaxException;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -8,6 +11,8 @@ import java.util.Scanner;
  * Part 1: register and log in.
  * Part 2: after a successful login, show a menu (while loop) and let the
  *         user enter a set number of messages (for loop).
+ * Part 3: keep the messages in arrays, read the stored messages back from the
+ *         JSON file, and add a fourth menu option: "Stored Messages".
  *
  * @author Masindi (ST10519562)
  */
@@ -214,6 +219,78 @@ public class RegistrationLoginApp {
             return Integer.parseInt(ask(scanner, question));
         } catch (NumberFormatException error) {
             return INVALID_NUMBER;
+        }
+    }
+    
+    // =====================================================================
+    // Part 3 - "Stored Messages" menu (options a to f)
+    // =====================================================================
+
+    /**
+     * Shows the Stored Messages menu until the user goes back to the main menu.
+     */
+    private static void runStoredMessagesMenu(Scanner scanner, MessageManager manager) {
+        boolean inStoredMenu = true;
+
+        while (inStoredMenu) {
+            printStoredMessagesMenu();
+            String option = ask(scanner, "Choose an option: ").toLowerCase();
+
+            switch (option) {
+                case "a":
+                    System.out.println(manager.displaySenderAndRecipient());
+                    break;
+                case "b":
+                    System.out.println("Longest stored message:");
+                    System.out.println(manager.findLongestStoredMessage());
+                    break;
+                case "c":
+                    System.out.println(manager.searchByMessageID(ask(scanner, "Enter the message ID: ")));
+                    break;
+                case "d":
+                    showMessagesForRecipient(scanner, manager);
+                    break;
+                case "e":
+                    System.out.println(manager.deleteMessageByHash(ask(scanner, "Enter the message hash: ")));
+                    break;
+                case "f":
+                    System.out.println(manager.displayReport());
+                    break;
+                case "g":
+                    inStoredMenu = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please enter a letter from a to g.");
+            }
+        }
+    }
+
+    private static void printStoredMessagesMenu() {
+        System.out.println();
+        System.out.println("=== Stored Messages ===");
+        System.out.println("a) Display the sender and recipient of all stored messages");
+        System.out.println("b) Display the longest stored message");
+        System.out.println("c) Search for a message ID");
+        System.out.println("d) Search for all messages (sent or stored) for a recipient");
+        System.out.println("e) Delete a message using the message hash");
+        System.out.println("f) Display a report of all sent and stored messages");
+        System.out.println("g) Back to the main menu");
+    }
+
+    /**
+     * Asks for a recipient and prints every sent or stored message for that number.
+     */
+    private static void showMessagesForRecipient(Scanner scanner, MessageManager manager) {
+        String recipient = ask(scanner, "Enter the recipient's cell number: ");
+        List<String> found = manager.searchByRecipient(recipient);
+
+        if (found.isEmpty()) {
+            System.out.println("No sent or stored messages found for " + recipient + ".");
+            return;
+        }
+        System.out.println("Messages for " + recipient + ":");
+        for (String text : found) {
+            System.out.println("- " + text);
         }
     }
 

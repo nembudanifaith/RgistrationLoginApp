@@ -265,4 +265,9 @@ public class Message {
     public static void setStorageFile(Path newFile) {
         storageFile = newFile;
     }
+
+    /** The JSON file used by storeMessage() - Part 3 reads the same file back into an array. */
+    public static Path getStorageFile() {
+        return storageFile;
+    }
 }
