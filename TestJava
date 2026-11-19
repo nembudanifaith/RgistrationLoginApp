@@ -1,5 +1,6 @@
 name: TestJava
 
+# Runs every time code is pushed to GitHub, and on pull requests into main
 on:
   push:
     branches: [ "**" ]
@@ -18,6 +19,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: maven
 
-      - name: Run the unit tests
+      # mvn test runs every test class: LoginTest (Part 1), MessageTest (Part 2)
+      # and MessageManagerTest (Part 3)
+      - name: Run all the unit tests
         run: mvn -B test
